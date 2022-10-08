@@ -5,23 +5,34 @@ alphanumeric {digit}|{letter}
 d_quote \"
 s_quote \'
 dot \.
+underscore \_
+comment_symbol \#
 sign [+-]
 empty [ \t]*
 open_b \{{empty}
 close_b {empty}\}
 int {sign}?{digit}+
 float {sign}?{digit}*{dot}{digit}+
+bool true|false
+comment {comment_symbol}[^\#]*{comment_symbol}
 constant_variable [A-Z]+
 variable {letter}{alphanumeric}*
+function_name {underscore}{letter}{alphanumeric}*
 %%
 \n printf(" NEWLINE\n");
 \( printf(" OPENP");
 \) printf(" CLOSEP");
+{open_b} printf(" OPENB");
+{close_b} printf(" CLOSEB");
+\= printf(" ASSIGNER");
+\, printf(" COMMA");
+\; printf(" SEMICOLON");
 \+\+ printf(" INCREMENT_OP"); 
 \-\- printf(" DECREMENT_OP"); 
-\; printf(" SEMICOLON");
 \=\= printf(" EQUAL_OP");
 \!\= printf(" NOT_EQUAL_OP");
+\* printf(" MULTIPLY_OP");
+\/ printf(" DIVIDE_OP");
 \&\& printf(" AND_OP");
 \|\| printf(" OR_OP");
 \< printf(" LT_OP");
@@ -42,8 +53,11 @@ def printf(" DEFINITION");
 return printf(" RETURN");
 if printf(" IF");
 else printf(" ELSE");
-{constant_variable} printf(" CONSTANT_VARIABLE");
-{variable} printf(" VARIABLE");
 {int} printf(" INTEGER");
 {float} printf(" FLOAT");
+{bool} printf(" BOOL");
+{comment} printf(" COMMENT");
+{constant_variable} printf(" CONSTANT_VARIABLE");
+{variable} printf(" VARIABLE");
+{function_name} printf(" FUNCTION_NAME");
 {empty} ;
