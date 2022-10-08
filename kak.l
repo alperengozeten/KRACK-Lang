@@ -13,6 +13,7 @@ open_b \{{empty}
 close_b {empty}\}
 int {sign}?{digit}+
 float {sign}?{digit}*{dot}{digit}+
+string {d_quote}[^\"]*{d_quote}
 bool true|false
 comment {comment_symbol}[^\#]*{comment_symbol}
 constant_variable [A-Z]+
@@ -31,8 +32,11 @@ function_name {underscore}{letter}{alphanumeric}*
 \-\- printf(" DECREMENT_OP"); 
 \=\= printf(" EQUAL_OP");
 \!\= printf(" NOT_EQUAL_OP");
-\* printf(" MULTIPLY_OP");
-\/ printf(" DIVIDE_OP");
+\+ printf(" ADDITION_OP");
+\- printf(" SUBTRACTION_OP");
+\* printf(" MULTIPLICATION_OP");
+\/ printf(" DIVISION_OP");
+\% printf(" MODULUS_OP");
 \&\& printf(" AND_OP");
 \|\| printf(" OR_OP");
 \< printf(" LT_OP");
@@ -53,8 +57,11 @@ def printf(" DEFINITION");
 return printf(" RETURN");
 if printf(" IF");
 else printf(" ELSE");
+in printf(" IN");
+out printf(" OUT");
 {int} printf(" INTEGER");
 {float} printf(" FLOAT");
+{string} printf(" STRING");
 {bool} printf(" BOOL");
 {comment} printf(" COMMENT");
 {constant_variable} printf(" CONSTANT_VARIABLE");
