@@ -13,6 +13,7 @@ open_b \{{empty}
 close_b {empty}\}
 int {sign}?{digit}+
 float {sign}?{digit}*{dot}{digit}+
+char {s_quote}[^\']{s_quote}
 string {d_quote}[^\"]*{d_quote}
 bool true|false
 comment {comment_symbol}[^\#]*{comment_symbol}
@@ -61,6 +62,7 @@ in printf(" IN");
 out printf(" OUT");
 {int} printf(" INTEGER");
 {float} printf(" FLOAT");
+{char} printf(" CHAR");
 {string} printf(" STRING");
 {bool} printf(" BOOL");
 {comment} printf(" COMMENT");
