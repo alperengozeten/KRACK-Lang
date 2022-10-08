@@ -1,0 +1,16 @@
+begin
+# test program for functions #
+
+def _myFunc(int x, int y) {
+    out("x is bigger than " + " y");
+}
+
+int value1 = in("value for x: ");
+int value2 = in("value for y: ");
+
+string myFunc = "this is a variable";
+
+# should differentiate between a variable and a function #
+out(myFunc);
+out(_myFunc(value1, value2));
+end

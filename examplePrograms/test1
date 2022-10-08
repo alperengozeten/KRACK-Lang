@@ -1,0 +1,25 @@
+begin
+# test program for loops #
+
+# for loop #
+
+for (int i = 0; i < 10; i++) {
+    out("works fine!");
+}
+
+int k = 5;
+for (k; true; k++) {
+out("good job");
+}
+
+# while loop #
+
+while (k > 8) {
+      k--;
+      quit;
+}
+
+while ('h') {
+out("test passed");
+}
+end
