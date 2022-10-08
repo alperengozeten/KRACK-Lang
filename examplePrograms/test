@@ -1,0 +1,37 @@
+begin
+bool z = false;
+bool y = ( 8 == 10) && z; 
+int a = 5 * 6 + (87-55);
+out(3 + 4 / 7);
+
+# Get input from the user#
+out("Please enter your name: ");
+string x = in();
+out("Hello, ", x);
+
+int b = 5 + 8;
+int c = 58 % 7;
+int d = b * a - c; 
+
+def _foo(int b, int c, int d) {
+     return b + c + d;
+}
+
+a = _foo(b, c, d);
+
+#define a boolean#
+bool x = true;
+
+# define an integer variable#
+int ab = 75;
+
+#define a constant variable#
+int AB = 57;
+
+if ( (ab == AB) && x ) {
+     out("They are equal and x is true!");
+}
+else {
+     out("They are not equal or x is not true!");
+}
+end
