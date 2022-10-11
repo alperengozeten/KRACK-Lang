@@ -18,14 +18,15 @@ def _foo(int b, int c, int d) {
 }
 
 a = _foo(b, c, d);
+e = a + _foo(b, c, d);
 
-#define a boolean#
+# define a boolean #
 bool x = true;
 
-# define an integer variable#
+# define an integer variable #
 int ab = 75;
 
-#define a constant variable#
+# define a constant variable #
 int AB = 57;
 
 if ( (ab == AB) && x ) {

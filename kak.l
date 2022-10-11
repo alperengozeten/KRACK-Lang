@@ -1,11 +1,13 @@
 %option main
 digit [0-9]
 letter [A-Za-z]
-alphanumeric {digit}|{letter}
+underscore \_
+capital_letter [A-Z]
+constant_letter {capital_letter}|{underscore}
+alphanumeric {digit}|{letter}|{underscore}
 d_quote \"
 s_quote \'
 dot \.
-underscore \_
 comment_symbol \#
 sign [+-]
 empty [ \t]*
@@ -17,7 +19,7 @@ char {s_quote}[^\']{s_quote}
 string {d_quote}[^\"]*{d_quote}
 bool true|false
 comment {comment_symbol}[^\#]*{comment_symbol}
-constant_variable [A-Z]+
+constant_variable {capital_letter}{constant_letter}*
 variable {letter}{alphanumeric}*
 function_name {underscore}{letter}{alphanumeric}*
 %%
