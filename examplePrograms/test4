@@ -1,0 +1,75 @@
+# Initialize the switches as global variables by passing their port numbers to the constructors
+to match each switch with the corresponding hardware #
+Switch s1(1);
+Switch s2(2);
+Switch s3(3);
+Switch s4(4);
+Switch s5(5);
+Switch s6(6);
+Switch s7(7);
+Switch s8(8);
+Switch s9(9);
+Switch s10(10);
+
+# Constants defined for the physical ports on the hardware
+ to be used for initializing the sensors #
+int LIGHT_SENSOR_PORT = 3;
+int SOUND_LEVEL_SENSOR_PORT = 7;
+
+# Constants for minimum and maximum
+sound level and light amount #
+
+int MIN_LIGHT_AMOUNT = 10;
+int MAX_LIGHT_AMOUNT = 175;
+
+int MIN_SOUND_AMOUNT = 20;
+int MAX_SOUND_AMOUNT = 100;
+
+# Create a timer #
+Timer t();
+
+# Create the sensors by passing the physical port numbers #
+Sensor lightSensor(LIGHT_SENSOR_PORT);
+Sensor soundLevelSensor(SOUND_LEVEL_SENSOR_PORT);
+
+# Create a URL object #
+string s = "https://github.com/klack/iotmanager";
+URL u(s);
+
+# Create a connection using the URL object #
+Connection c(u);
+
+# Check the sound and light every 10 seconds #
+while ( true ) {
+
+      # Check every 10 minutes as time stamp returns seconds after UTC #
+      int currentTime = timer._get_timestamp();
+      if ( currentTime % 600 == 0 ) {
+      	 _checkSoundAndLight(c, soundLevelSensor, lightSensor, MIN_SOUND_AMOUNT, 
+         MAX_SOUND_AMOUNT, MIN_LIGHT_AMOUNT, MAX_LIGHT_AMOUNT);
+      }
+}
+
+def _checkSoundAndLight(Connection c, Sensor soundLevelSensor, Sensor lightSensor,
+ int MIN_SOUND_AMOUNT, int MAX_SOUND_AMOUNT, int MIN_LIGHT_AMOUNT, int MAX_LIGHT_AMOUNT) {
+
+    if ( lightLevelSensor._get_light_level() < MIN_LIGHT_AMOUNT ||
+            soundLevelSensor._get_sound_level() > MAX_SOUND_AMOUNT ) {
+        
+        # s4 switch starts the alarm #
+        s4._turn_on();
+
+        c._send_data("Unusal sound level during night time! Starting the alarm!");
+    }
+
+    if ( lightLevelSensor._get_light_level() > MAX_LIGHT_AMOUNT ||
+            soundLevelSensor._get_sound_level() < MIN_SOUND_AMOUNT ) {
+        
+        # s5 turns off all the lights, if there are any open #
+        s5._turn_on();
+
+        c._send_data("Some lights are forgotten on while no one is at home or during night. Turning them off");
+    }
+
+}
+end

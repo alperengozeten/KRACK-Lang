@@ -14,12 +14,12 @@ Switch s10(10);
 
 # Constants defined for the physical ports on the hardware
  to be used for initializing the sensors #
-int HUMIDITYSENSORPORT = 1;
-int TEMPERATURESENSORPORT = 2;
+int HUMIDITY_SENSOR_PORT = 1;
+int TEMPERATURE_SENSOR_PORT = 2;
 
 # Create the sensors by passing the physical port numbers #
-Sensor temperatureSensor(TEMPERATURESENSORPORT);
-Sensor humiditySensor(HUMIDITYSENSORPORT);
+Sensor temperatureSensor(TEMPERATURE_SENSOR_PORT);
+Sensor humiditySensor(HUMIDITY_SENSOR_PORT);
 
 # Create a URL object #
 string s = "https://github.com/klack/iotmanager";
