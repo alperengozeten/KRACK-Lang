@@ -1,0 +1,65 @@
+begin
+# Initialize the switches as global variables by passing their port numbers to the constructors
+to match each switch with the corresponding hardware #
+Switch s1(1);
+Switch s2(2);
+Switch s3(3);
+Switch s4(4);
+Switch s5(5);
+Switch s6(6);
+Switch s7(7);
+Switch s8(8);
+Switch s9(9);
+Switch s10(10);
+
+# Constants defined for the physical ports on the hardware
+ to be used for initializing the sensors #
+int HUMIDITYSENSORPORT = 1;
+int TEMPERATURESENSORPORT = 2;
+
+# Create the sensors by passing the physical port numbers #
+Sensor temperatureSensor(TEMPERATURESENSORPORT);
+Sensor humiditySensor(HUMIDITYSENSORPORT);
+
+# Create a URL object #
+string s = "https://github.com/klack/iotmanager";
+URL u(s);
+
+# Create a connection using the URL object #
+Connection c(u);
+
+# Create a timer #
+Timer t();
+
+# Set a maximum temperature #
+float maxTemperature = 50.0;
+
+# This number is in the range [0, 100] #
+float minHumidity = 10.0;
+
+# Check the temperature and humidity approximately every 10 seconds #
+while ( 1 ) {
+
+      # Check every 10 seconds as time stamp returns seconds after UTC #
+      int currentTime = timer._get_timestamp();
+      if ( currentTime % 10 == 0 ) {
+      	 _checkFire(c, temperatureSensor, humiditySensor, maxTemperature, minHumidity);
+      }
+}
+
+
+def _checkFire(Connection c, Sensor temperatureSensor, Sensor humiditySensor,
+    		      float maxTemp, float minHumidity) {
+		      
+    # Take action and send info in case of a possible fire #		      
+    if ( temperature_sensor._get_temperature() > maxTemp && humiditySensor._get_humidity() < minHumidity ){
+
+        # s1 and s7 switches together actuates the cooler #
+        s1._turn_on();
+	s7._turn_on();
+
+	c._send_data("Cooler activated! Possible fire inside the house!");
+    }
+}
+
+end
