@@ -50,7 +50,7 @@ def _checkAir(Connection c, Sensor airPressureSensor, Sensor airQualitySensor,
     		      int MIN_AIR_PRESSURE, int MAX_AIR_PRESSURE_AMOUNT) {
 		      		      
     if ( airPressureSensor._get_air_pressure() > MAX_AIR_PRESSURE_AMOUNT || airPressureSensor._get_air_pressure() < MIN_AIR_PRESSURE_AMOUNT
-        || airQualitySensor.get_air_quality() == "bad") {
+        || airQualitySensor._get_air_quality() == "bad") {
 
         # inform air conditioning company about the bad situation #
         string s2 = "https://airconditionercompany.com";
@@ -62,6 +62,8 @@ def _checkAir(Connection c, Sensor airPressureSensor, Sensor airQualitySensor,
 
         # also, open the windows with s6 switch #
         s6._turn_on();
+        # turn off the air conditioning until the company reaches out with further information #
+        s8._turn_off();
     }
 }
 
