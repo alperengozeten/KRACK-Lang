@@ -27,7 +27,7 @@ function_name {underscore}{letter}{alphanumeric}*
 \n ;
 \( return(OPENP);
 \) return(CLOSEP);
-{open_b} return(OPEN);
+{open_b} return(OPENB);
 {close_b} return(CLOSEB);
 \= return(ASSIGNER);
 \. return(DOT);
