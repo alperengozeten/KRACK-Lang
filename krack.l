@@ -22,6 +22,7 @@ comment {comment_symbol}[^\#]*{comment_symbol}
 constant_variable {capital_letter}{constant_letter}*
 variable {letter}{alphanumeric}*
 function_name {underscore}{letter}{alphanumeric}*
+%option yylineno
 %%
 \n ;
 \( return(OPENP);
