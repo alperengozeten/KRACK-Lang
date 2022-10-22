@@ -25,8 +25,8 @@
 %token GT_OP;
 %token LT_EQ_OP;
 %token GT_EQ_OP;
-%token BEGIN;
-%token END;
+%token START_PROGRAM;
+%token STOP_PROGRAM;
 %token INT_TYPE;
 %token FLOAT_TYPE;
 %token STRING_TYPE;
@@ -79,6 +79,31 @@
 %token INVALID_CHAR;
 
 %%
+
+program: START_PROGRAM stmt_list STOP_PROGRAM
+
+stmt_list: stmt | stmt_list stmt
+
+stmt: declaration_stmt SEMICOLON | update_stmt SEMICOLON | quit_stmt SEMICOLON
+
+// Statements
+
+declaration_stmt: variable_declaration
+
+update_stmt: increment_stmt | decrement_stmt
+
+increment_stmt: INCREMENT_OP VARIABLE | VARIABLE INCREMENT_OP
+
+decrement_stmt: DECREMENT_OP VARIABLE | VARIABLE DECREMENT_OP
+
+quit_stmt: QUIT
+
+// Types and Literals
+
+type_id: INTEGER | FLOAT | CHAR | STRING | BOOL 
+
+// Variables and Identifiers
+variables: VARIABLE | CONSTANT_VARIABLE
 
 %%
 #include "lex.yy.c"
