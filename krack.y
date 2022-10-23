@@ -91,7 +91,7 @@ stmt: assign_stmt SEMICOLON | declaration_stmt SEMICOLON | update_stmt SEMICOLON
 
 assign_stmt: VARIABLE ASSIGNER expression
 
-declaration_stmt: switch_declaration 
+declaration_stmt: variable_declaration | switch_declaration 
 
 update_stmt: increment_stmt | decrement_stmt
 
@@ -114,12 +114,14 @@ switch: SWITCH1 | SWITCH2 | SWITCH3 | SWITCH4 | SWITCH5 | SWITCH6 | SWITCH7 | SW
 
 // Types and Literals
 
-// type_id:
+type_id: INT_TYPE | FLOAT_TYPE | CHAR_TYPE | STRING_TYPE | BOOL_TYPE
 
 literal: INTEGER | FLOAT | CHAR | STRING | BOOL 
 
 // Variables and Identifiers
 variables: VARIABLE | CONSTANT_VARIABLE
+
+variable_declaration: type_id variables ASSIGNER expression
 
 // Expressions
 
