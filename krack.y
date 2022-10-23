@@ -86,6 +86,7 @@ program: START_PROGRAM stmt_list STOP_PROGRAM
 stmt_list: stmt | stmt_list stmt
 
 stmt: assign_stmt SEMICOLON | loop_stmt | declaration_stmt SEMICOLON | update_stmt SEMICOLON | quit_stmt SEMICOLON | comment
+    | return_stmt SEMICOLON
 
 // Statements
 
@@ -94,6 +95,8 @@ assign_stmt: VARIABLE ASSIGNER expression
 loop_stmt: while_stmt | for_stmt
 
 declaration_stmt: variable_declaration | switch_declaration 
+
+return_stmt: RETURN expression | RETURN
 
 update_stmt: increment_stmt | decrement_stmt
 
