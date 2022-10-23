@@ -35,6 +35,7 @@ function_name {underscore}{letter}{alphanumeric}*
 \+\+ return (INCREMENT_OP); 
 \-\- return (DECREMENT_OP); 
 \=\= return (EQUAL_OP);
+\! return (NOT_OP);
 \!\= return (NOT_EQUAL_OP);
 \+ return (ADDITION_OP);
 \- return (SUBTRACTION_OP);

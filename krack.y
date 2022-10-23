@@ -13,6 +13,7 @@
 %token INCREMENT_OP; 
 %token DECREMENT_OP; 
 %token EQUAL_OP;
+%token NOT_OP;
 %token NOT_EQUAL_OP;
 %token ADDITION_OP;
 %token SUBTRACTION_OP;
@@ -84,11 +85,13 @@ program: START_PROGRAM stmt_list STOP_PROGRAM
 
 stmt_list: stmt | stmt_list stmt
 
-stmt: declaration_stmt SEMICOLON | update_stmt SEMICOLON | quit_stmt SEMICOLON
+stmt: assign_stmt SEMICOLON | declaration_stmt SEMICOLON | update_stmt SEMICOLON | quit_stmt SEMICOLON | comment
 
 // Statements
 
-declaration_stmt: variable_declaration
+assign_stmt: VARIABLE ASSIGNER expression
+
+declaration_stmt: switch_declaration 
 
 update_stmt: increment_stmt | decrement_stmt
 
@@ -98,12 +101,55 @@ decrement_stmt: DECREMENT_OP VARIABLE | VARIABLE DECREMENT_OP
 
 quit_stmt: QUIT
 
+comment: COMMENT
+
+// IoT Objects, Statements, and Symbols
+
+switch_declaration: switch VARIABLE OPENP CLOSEP
+
+// iot_function: GET_DATA | GET_TEMPERATURE | GET_HUMIDITY | GET_AIR_PRESSURE | GET_AIR_QUALITY | GET_LIGHT 
+//              | GET_SOUND_LEVEL | CHANGE_URL | SEND_DATA | TURN_ON | TURN_OFF | GET_TIMESTAMP
+
+switch: SWITCH1 | SWITCH2 | SWITCH3 | SWITCH4 | SWITCH5 | SWITCH6 | SWITCH7 | SWITCH8 | SWITCH9 | SWITCH10
+
 // Types and Literals
 
-type_id: INTEGER | FLOAT | CHAR | STRING | BOOL 
+// type_id:
+
+literal: INTEGER | FLOAT | CHAR | STRING | BOOL 
 
 // Variables and Identifiers
 variables: VARIABLE | CONSTANT_VARIABLE
+
+// Expressions
+
+expression: low_precedence_expression
+
+low_precedence_expression: low_precedence_expression low_precedence_operation middle_low_precedence_expression 
+                          | middle_low_precedence_expression
+
+middle_low_precedence_expression: middle_low_precedence_expression middle_low_precedence_operation middle_precedence_expression
+                          | middle_precedence_expression
+
+middle_precedence_expression: middle_precedence_expression middle_precedence_operation middle_high_precedence_expression
+                          | middle_high_precedence_expression
+
+middle_high_precedence_expression: middle_high_precedence_expression middle_high_precedence_operation high_precedence_expression
+                          | high_precedence_expression
+
+high_precedence_expression: NOT_OP high_precedence_expression | expression_term
+
+expression_term: OPENP low_precedence_expression CLOSEP | literal | variables | comparison_expression
+
+comparison_expression: variables comparison_op variables | variables comparison_op literal | literal comparison_op literal 
+                        |  literal comparison_op variables
+
+comparison_op: LT_OP | GT_OP | LT_EQ_OP | GT_EQ_OP | EQUAL_OP | NOT_EQUAL_OP
+
+low_precedence_operation: OR_OP
+middle_low_precedence_operation: AND_OP
+middle_precedence_operation: ADDITION_OP | SUBTRACTION_OP
+middle_high_precedence_operation: MULTIPLICATION_OP | DIVISION_OP | MODULUS_OP
 
 %%
 #include "lex.yy.c"
