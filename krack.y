@@ -86,7 +86,7 @@ program: START_PROGRAM stmt_list STOP_PROGRAM
 stmt_list: stmt | stmt_list stmt
 
 stmt: assign_stmt SEMICOLON | loop_stmt | declaration_stmt SEMICOLON | update_stmt SEMICOLON | quit_stmt SEMICOLON | comment
-    | return_stmt SEMICOLON | conditional_stmt
+    | return_stmt SEMICOLON | conditional_stmt | function SEMICOLON
 
 // Statements
 
@@ -171,6 +171,21 @@ for_initial: assign_stmt | variable_declaration | VARIABLE
 
 while_stmt: WHILE OPENP expression CLOSEP OPENB stmt_list CLOSEB
 
+// Functions
+
+function: primitive_function_call
+
+primitive_function_call: input_function | output_function
+
+// argument_list: variables COMMA argument_list | variables 
+
+// parameter_list: type_id variables COMMA parameter_list | type_id variables
+
+input_function: IN OPENP CLOSEP | IN OPENP STRING CLOSEP
+
+output_function: OUT OPENP output_list CLOSEP
+
+output_list: variables COMMA output_list | literal COMMA output_list | variables | literal
 
 %%
 #include "lex.yy.c"
