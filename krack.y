@@ -86,13 +86,16 @@ program: START_PROGRAM stmt_list STOP_PROGRAM
 stmt_list: stmt | stmt_list stmt
 
 stmt: assign_stmt SEMICOLON | loop_stmt | declaration_stmt SEMICOLON | update_stmt SEMICOLON | quit_stmt SEMICOLON | comment
-    | return_stmt SEMICOLON
+    | return_stmt SEMICOLON | conditional_stmt
 
 // Statements
 
 assign_stmt: VARIABLE ASSIGNER expression
 
 loop_stmt: while_stmt | for_stmt
+
+conditional_stmt: IF OPENP expression CLOSEP OPENB stmt_list CLOSEB
+                  | IF OPENP expression CLOSEP OPENB stmt_list CLOSEB ELSE OPENB stmt_list CLOSEB
 
 declaration_stmt: variable_declaration | switch_declaration 
 
@@ -183,7 +186,7 @@ int main (void)
   yyparse();
   if( yynerrs < 1 )
     {
-      printf("This is a valid input for CLIPS\n");
+      printf("This is a valid input for KRACK\n");
     }
   return 0;
 }
