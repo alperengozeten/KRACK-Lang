@@ -207,7 +207,7 @@ output_function: OUT OPENP argument_list CLOSEP
 int lineno = 1;
 int yyerror(char* s)
 {
-  printf( "error in line %d: %s\n", yylineno, s );
+  printf( "error on line %d: %s\n", yylineno, s );
 }
 
 int main (void)
