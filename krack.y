@@ -86,7 +86,7 @@ program: START_PROGRAM stmt_list STOP_PROGRAM
 stmt_list: stmt | stmt_list stmt
 
 stmt: assign_stmt SEMICOLON | loop_stmt | declaration_stmt SEMICOLON | update_stmt SEMICOLON | quit_stmt SEMICOLON | comment
-    | return_stmt SEMICOLON | conditional_stmt | function SEMICOLON
+    | return_stmt SEMICOLON | conditional_stmt | function SEMICOLON | function_definition
 
 // Statements
 
@@ -149,10 +149,11 @@ middle_high_precedence_expression: middle_high_precedence_expression middle_high
 
 high_precedence_expression: NOT_OP high_precedence_expression | expression_term
 
-expression_term: OPENP low_precedence_expression CLOSEP | literal | variables | comparison_expression
+expression_term: OPENP low_precedence_expression CLOSEP | literal | variables | comparison_expression | function
 
 comparison_expression: variables comparison_op variables | variables comparison_op literal | literal comparison_op literal 
-                        |  literal comparison_op variables
+                        |  literal comparison_op variables | function comparison_op function | function comparison_op variables
+                        | function comparison_op literal | variables comparison_op function | literal comparison_op function
 
 comparison_op: LT_OP | GT_OP | LT_EQ_OP | GT_EQ_OP | EQUAL_OP | NOT_EQUAL_OP
 
@@ -173,19 +174,22 @@ while_stmt: WHILE OPENP expression CLOSEP OPENB stmt_list CLOSEB
 
 // Functions
 
-function: primitive_function_call
+function: function_call | primitive_function_call
+
+function_call: FUNCTION_NAME OPENP CLOSEP | FUNCTION_NAME OPENP argument_list CLOSEP
 
 primitive_function_call: input_function | output_function
 
-// argument_list: variables COMMA argument_list | variables 
+function_definition: DEFINITION FUNCTION_NAME OPENP CLOSEP OPENB stmt_list CLOSEB
+                    | DEFINITION FUNCTION_NAME OPENP parameter_list CLOSEP OPENB stmt_list CLOSEB
 
-// parameter_list: type_id variables COMMA parameter_list | type_id variables
+parameter_list: type_id variables COMMA parameter_list | type_id variables
+
+argument_list: variables COMMA argument_list | literal COMMA argument_list | variables | literal
 
 input_function: IN OPENP CLOSEP | IN OPENP STRING CLOSEP
 
-output_function: OUT OPENP output_list CLOSEP
-
-output_list: variables COMMA output_list | literal COMMA output_list | variables | literal
+output_function: OUT OPENP argument_list CLOSEP
 
 %%
 #include "lex.yy.c"
