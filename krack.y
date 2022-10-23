@@ -85,11 +85,13 @@ program: START_PROGRAM stmt_list STOP_PROGRAM
 
 stmt_list: stmt | stmt_list stmt
 
-stmt: assign_stmt SEMICOLON | declaration_stmt SEMICOLON | update_stmt SEMICOLON | quit_stmt SEMICOLON | comment
+stmt: assign_stmt SEMICOLON | loop_stmt | declaration_stmt SEMICOLON | update_stmt SEMICOLON | quit_stmt SEMICOLON | comment
 
 // Statements
 
 assign_stmt: VARIABLE ASSIGNER expression
+
+loop_stmt: while_stmt | for_stmt
 
 declaration_stmt: variable_declaration | switch_declaration 
 
@@ -152,6 +154,17 @@ low_precedence_operation: OR_OP
 middle_low_precedence_operation: AND_OP
 middle_precedence_operation: ADDITION_OP | SUBTRACTION_OP
 middle_high_precedence_operation: MULTIPLICATION_OP | DIVISION_OP | MODULUS_OP
+
+// Loop Statements
+
+for_stmt: FOR OPENP for_initial SEMICOLON expression SEMICOLON for_update_stmt CLOSEP OPENB stmt_list CLOSEB
+
+for_update_stmt: update_stmt | assign_stmt
+
+for_initial: assign_stmt | variable_declaration | VARIABLE
+
+while_stmt: WHILE OPENP expression CLOSEP OPENB stmt_list CLOSEB
+
 
 %%
 #include "lex.yy.c"
