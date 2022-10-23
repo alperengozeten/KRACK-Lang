@@ -97,7 +97,7 @@ loop_stmt: while_stmt | for_stmt
 conditional_stmt: IF OPENP expression CLOSEP OPENB stmt_list CLOSEB
                   | IF OPENP expression CLOSEP OPENB stmt_list CLOSEB ELSE OPENB stmt_list CLOSEB
 
-declaration_stmt: variable_declaration | switch_declaration 
+declaration_stmt: variable_declaration | switch_declaration | object_declaration
 
 return_stmt: RETURN expression | RETURN
 
@@ -113,10 +113,20 @@ comment: COMMENT
 
 // IoT Objects, Statements, and Symbols
 
+object_declaration: iot_object_type VARIABLE OPENP CLOSEP
+                  | iot_object_type VARIABLE OPENP argument_list CLOSEP
+
 switch_declaration: switch VARIABLE OPENP CLOSEP
 
-// iot_function: GET_DATA | GET_TEMPERATURE | GET_HUMIDITY | GET_AIR_PRESSURE | GET_AIR_QUALITY | GET_LIGHT 
-//              | GET_SOUND_LEVEL | CHANGE_URL | SEND_DATA | TURN_ON | TURN_OFF | GET_TIMESTAMP
+object_function_call: VARIABLE DOT iot_function OPENP CLOSEP
+                    | VARIABLE DOT iot_function OPENP argument_list CLOSEP
+                    | VARIABLE DOT FUNCTION_NAME OPENP CLOSEP
+                    | VARIABLE DOT FUNCTION_NAME OPENP argument_list CLOSEP
+
+iot_object_type: URL | CONNECTION | SENSOR | TIMER
+
+iot_function: GET_DATA | GET_TEMPERATURE | GET_HUMIDITY | GET_AIR_PRESSURE | GET_AIR_QUALITY | GET_LIGHT 
+              | GET_SOUND_LEVEL | CHANGE_URL | SEND_DATA | TURN_ON | TURN_OFF | GET_TIMESTAMP
 
 switch: SWITCH1 | SWITCH2 | SWITCH3 | SWITCH4 | SWITCH5 | SWITCH6 | SWITCH7 | SWITCH8 | SWITCH9 | SWITCH10
 
@@ -174,7 +184,7 @@ while_stmt: WHILE OPENP expression CLOSEP OPENB stmt_list CLOSEB
 
 // Functions
 
-function: function_call | primitive_function_call
+function: function_call | primitive_function_call | object_function_call
 
 function_call: FUNCTION_NAME OPENP CLOSEP | FUNCTION_NAME OPENP argument_list CLOSEP
 
