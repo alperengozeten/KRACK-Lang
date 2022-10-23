@@ -215,7 +215,7 @@ int main (void)
   yyparse();
   if( yynerrs < 1 )
     {
-      printf("This is a valid input for KRACK\n");
+      printf("Input program is valid in KRACK language!\n");
     }
   return 0;
 }
