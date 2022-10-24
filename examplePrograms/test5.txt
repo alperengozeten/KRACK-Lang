@@ -58,7 +58,7 @@ def _checkAir(Connection c, Sensor airPressureSensor, Sensor airQualitySensor,
 
         # Connect to the company servers to inform them #
         c._change_url(newUrl)
-	    c._send_data("Something wrong with the air, please have a look at it!");
+	    c._send_data(5); # Error code:5 -> Something wrong with the air, please have a look at it! #
 
         # also, open the windows with s6 switch #
         s6._turn_on();
