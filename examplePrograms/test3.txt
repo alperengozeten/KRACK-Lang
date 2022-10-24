@@ -58,7 +58,7 @@ def _checkFire(Connection c, Sensor temperatureSensor, Sensor humiditySensor,
         s1._turn_on();
 	s7._turn_on();
 
-	c._send_data("Cooler activated! Possible fire inside the house!");
+	c._send_data(8); # Notification message : 8 -> Cooler activated! Possible fire inside the house! #
     }
 }
 
