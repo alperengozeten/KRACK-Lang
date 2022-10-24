@@ -68,7 +68,7 @@ def _checkSoundAndLight(Connection c, Sensor soundLevelSensor, Sensor lightSenso
         # s5 turns off all the lights, if there are any open #
         s5._turn_on();
 
-        c._send_data(3); # Error message: 3 -> Some lights are forgotten on while no one is at home or during night. Turning them off #
+        c._send_data(3); # Notification message: 3 -> Some lights are forgotten on while no one is at home or during night. Turning them off #
     }
 
 }
