@@ -1,15 +1,15 @@
 # Initialize the switches as global variables by passing their port numbers to the constructors
 to match each switch with the corresponding hardware #
-Switch1 s1(1);
-Switch2 s2(2);
-Switch3 s3(3);
-Switch4 s4(4);
-Switch5 s5(5);
-Switch6 s6(6);
-Switch7 s7(7);
-Switch8 s8(8);
-Switch9 s9(9);
-Switch10 s10(10);
+Switch1 s1();
+Switch2 s2();
+Switch3 s3();
+Switch4 s4();
+Switch5 s5();
+Switch6 s6();
+Switch7 s7();
+Switch8 s8();
+Switch9 s9();
+Switch10 s10();
 
 # Constants defined for the physical ports on the hardware
  to be used for initializing the sensors #
