@@ -1,7 +1,7 @@
 begin
 bool z = false;
 bool y = ( 8 == 10) && z; 
-int a = 5 * 6 + (87-55);
+int a = 5 * 6 + (87 - 55);
 out(3 + 4 / 7);
 
 # Get input from the user#
