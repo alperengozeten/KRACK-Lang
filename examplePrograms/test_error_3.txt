@@ -1,0 +1,71 @@
+begin
+# Initialize the switches as global variables by passing their port numbers to the constructors
+to match each switch with the corresponding hardware #
+Switch1 s1();
+Switch2 s2();
+Switch3 s3();
+Switch4 s4();
+Switch5 s5();
+Switch  s6(); #This must give an error since there is no Switch statement not followed by a number, i.e. it must be Switch6 rather than Switch # 
+Switch7 s7();
+Switch8 s8();
+Switch9 s9();
+Switch10 s10();
+
+# Constants defined for the physical ports on the hardware
+ to be used for initializing the sensors #
+int HUMIDITY_SENSOR_PORT = 1;
+int TEMPERATURE_SENSOR_PORT = 2;
+
+# Create the sensors by passing the physical port numbers #
+
+Sensor humiditySensor(HUMIDITY_SENSOR_PORT);
+Sensor temperatureSensor(TEMPERATURE_SENSOR_PORT);
+
+# Create a URL object #
+string s = "https://coolyourplant.com";
+URL u(s);
+
+# Create a connection using the URL object #
+Connection c(u);
+
+# Create a timer #
+Timer t();
+
+# Set a maximum temperature #
+float maxTemperature = 50.0;
+
+# This number is in the range [0, 100] #
+float minHumidity = 10.0;
+
+# Check the temperature and humidity approximately every 10 minutes #
+while ( 1 ) {
+
+      # Check every 10 minutes as time stamp returns seconds after UTC #
+      int currentTime = timer._get_timestamp();
+      if ( currentTime % 600  == 0 ) {
+      	 _coolPlant(c, temperatureSensor, humiditySensor, maxTemperature, minHumidity);
+      }
+}
+
+
+def _coolSensor(Connection c, Sensor temperatureSensor, Sensor humiditySensor,
+    		      float maxTemp, float minHumidity) {
+		      
+    # Start the cooler and irrigation machine if the temperature and humidity are not optimal  #		      
+    if ( temperature_sensor._get_temperature() > maxTemp && humiditySensor._get_humidity() < minHumidity ){
+
+        # s1 and s7 switches together actuates the cooler #
+        s1._turn_on();
+	s7._turn_on();
+
+
+	# s4, s5, and s9 switches actuates the irrigation machine when turned on #
+	s4._turn_on();
+	s5.turn_on();
+	s9._turn_on();
+	c._send_data(11); # Notification message : 11 -> #Your plant is saved! Temperature and humidity levels are returning to the normal.#
+    }
+}
+
+end

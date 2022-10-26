@@ -1,0 +1,17 @@
+begin
+
+int MIN_NUMBER = 0;
+int MAX_NUMBER = 57;
+int even_sum = _findEvenSum( MIN_NUMBER, MAX_NUMBER);
+
+def _findEvenSum( int start, int finish ) {
+    if (start <= finish ) {
+       return;
+    }
+    else {
+       int sum = 0;
+       for ( int i = start; i < finish; i ++ ) {
+       	   sum += 1; #There must be an error since '+=' operator does not exist. #
+	}
+    }
+}
