@@ -193,7 +193,9 @@ primitive_function_call: input_function | output_function
 function_definition: DEFINITION FUNCTION_NAME OPENP CLOSEP OPENB stmt_list CLOSEB
                     | DEFINITION FUNCTION_NAME OPENP parameter_list CLOSEP OPENB stmt_list CLOSEB
 
-parameter_list: type_id variables COMMA parameter_list | type_id variables
+parameter_list: parameter_type variables COMMA parameter_list | parameter_type variables
+
+parameter_type: type_id | iot_object_type | switch
 
 argument_list: variables COMMA argument_list | literal COMMA argument_list | variables | literal
 
