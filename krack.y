@@ -118,15 +118,22 @@ object_declaration: iot_object_type VARIABLE OPENP CLOSEP
 
 switch_declaration: switch VARIABLE OPENP CLOSEP
 
+iot_function_call: object_function_call | data_function_call
+
 object_function_call: VARIABLE DOT iot_function OPENP CLOSEP
                     | VARIABLE DOT iot_function OPENP argument_list CLOSEP
                     | VARIABLE DOT FUNCTION_NAME OPENP CLOSEP
                     | VARIABLE DOT FUNCTION_NAME OPENP argument_list CLOSEP
 
+data_function_call: VARIABLE DOT data_function OPENP INTEGER CLOSEP
+                    | VARIABLE DOT data_function OPENP INTEGER COMMA STRING CLOSEP
+
 iot_object_type: URL | CONNECTION | SENSOR | TIMER
 
-iot_function: GET_DATA | GET_TEMPERATURE | GET_HUMIDITY | GET_AIR_PRESSURE | GET_AIR_QUALITY | GET_LIGHT 
-              | GET_SOUND_LEVEL | CHANGE_URL | SEND_DATA | TURN_ON | TURN_OFF | GET_TIMESTAMP
+iot_function: GET_TEMPERATURE | GET_HUMIDITY | GET_AIR_PRESSURE | GET_AIR_QUALITY | GET_LIGHT 
+              | GET_SOUND_LEVEL | CHANGE_URL | TURN_ON | TURN_OFF | GET_TIMESTAMP
+
+data_function: GET_DATA | SEND_DATA
 
 switch: SWITCH1 | SWITCH2 | SWITCH3 | SWITCH4 | SWITCH5 | SWITCH6 | SWITCH7 | SWITCH8 | SWITCH9 | SWITCH10
 
@@ -184,7 +191,7 @@ while_stmt: WHILE OPENP expression CLOSEP OPENB stmt_list CLOSEB
 
 // Functions
 
-function: function_call | primitive_function_call | object_function_call
+function: function_call | primitive_function_call | iot_function_call
 
 function_call: FUNCTION_NAME OPENP CLOSEP | FUNCTION_NAME OPENP argument_list CLOSEP
 
