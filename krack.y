@@ -83,7 +83,7 @@
 
 program: START_PROGRAM stmt_list STOP_PROGRAM
 
-stmt_list: stmt | stmt_list stmt
+stmt_list: stmt | stmt_list stmt | error SEMICOLON { yyerrok;}
 
 stmt: assign_stmt SEMICOLON | loop_stmt | declaration_stmt SEMICOLON | update_stmt SEMICOLON | quit_stmt SEMICOLON | comment
     | return_stmt SEMICOLON | conditional_stmt | function SEMICOLON | function_definition
